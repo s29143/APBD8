@@ -15,17 +15,15 @@ public interface IClientService
 public class ClientService : IClientService
 {
     private readonly MasterContext _context;
-    private readonly ITripService _tripService;
 
-    public ClientService(MasterContext context, ITripService tripService)
+    public ClientService(MasterContext context)
     {
         _context = context;
-        _tripService = tripService;
     }
 
     public async Task<Client?> GetById(int id)
     {
-        return await _context.Clients.Where(e => e.IdClient == id).SingleAsync();
+        return await _context.Clients.Where(e => e.IdClient == id).SingleOrDefaultAsync();
     }
 
     public async Task<bool> Delete(int id)
